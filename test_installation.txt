@@ -1,0 +1,7 @@
+﻿Test installation:
+	
+– Open: ’<WinPython install dir>/WinPython Powershell Prompt.exe’
+	
+– Navigate to your <ProjectDirectory>
+	
+– Run: ’python windowRasterized_example.py’
