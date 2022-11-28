@@ -25,10 +25,9 @@ def calculateMatrix():
 
 def setOddValues(window, matrix):
 
-
-    for x in range (columns):
-        for y in range (rows):
-            if (x * y) % 23 != 0:
+    for x in range (1,columns):
+        for y in range (1,rows):
+            if matrix[y][x] % 2 != 0:
                 window.setColor(x,y, cf.Color.RED)
     return
 

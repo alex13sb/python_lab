@@ -26,7 +26,7 @@ for i in range(ifs.getNumTransformations()):
     array = helper.convertMat3x3ToArray(t)
     print(array)
     mat3x3 = helper.convertArrayToMat3x3(array)
-    print("value_0_1 =", mat3x3.at(0,1)) # column 0, line 1
+    print("value_2_0 =", mat3x3.at(0, 1)) # column 0, line 1
 
 # multiplication:  matrix * matrix
 matrix0 = helper.convertMat3x3ToArray(ifs.getTransformation(0))
