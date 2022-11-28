@@ -4,7 +4,8 @@ from libcfcg import helper
 import math
 import sys
 import time
-from random import randrange, randint
+import random
+from random import randint
 
 # read ifs file
 ifs = cf.IteratedFunctionSystem()
@@ -19,16 +20,24 @@ print("x in Interval: ", xInterval)
 print("y in Interval: ", yInterval)
 cfIntervalX = cf.Interval(xInterval[0], xInterval[1])
 cfIntervalY = cf.Interval(yInterval[0], yInterval[1])
-probs = []
+# get all Mat3x3
+matrices = []
+for i in range(ifs.getNumTransformations()):
+    matrices.append(cf.GlmMat3x3(ifs.getTransformation(i)))
+
+
+dets = []
 # get probabilities for trafos
 for i in range(ifs.getNumTransformations()):
     matrix = cf.GlmMat3x3(ifs.getTransformation(i))
     det = matrix.at(0, 0) * matrix.at(1, 1) - matrix.at(1, 0) - matrix.at(0, 1)
-    probs.append(det)
+    dets.append(det)
 
-probability_sum = np.sum(probs)
-for i in probs:
-    probs[i] = probs[i]/probability_sum
+probability_sum = np.sum(dets)
+probs = []
+for index in dets:
+    probs.append(dets[int(index)]/probability_sum)
+
 # image corresponding to the 2D float interval
 window = cf.WindowVectorized(512, cfIntervalX, cfIntervalY,
         "Window ifs")
@@ -46,9 +55,9 @@ vector = [point.x, point.y, 1] # Punkt wie in ifs_example.cpp/py
 window.setColor(vector[0], vector[1], cf.Color.RandomColor())
 
 for i in range(15000):
-    matrix = helper.convertMat3x3ToArray(ifs.getTransformation(randint(0,
-    ifs.getNumTransformations()-1)))
-    new_vector = np.matmul(matrix, vector)
+    choice = random.choice(matrices, weights=probs,
+                           k = ifs.getNumTransformations())
+    new_vector = np.matmul(choice, vector)
     window.setColor(new_vector[0], new_vector[1], cf.Color.RandomColor())
     vector = new_vector
     if (i % 100 == 0):
