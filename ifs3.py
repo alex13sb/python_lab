@@ -98,7 +98,6 @@ def draw(filename, do_calc_fixpunkt: bool = True):
 
 def ex_ifs2():
     file_list = ["farn_1.ifs", "filmstreifen.ifs", "wirbel_blatt.ifs", "strauch.ifs", "swirl.ifs"]
-
     for filename in file_list:
         window = draw("chaos_files/" + filename)
         opencv_wait(window)

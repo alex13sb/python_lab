@@ -1,8 +1,12 @@
-from libcfcg import cf
-from libcfcg import helper
+import random
+import sys
+
+import numpy as np
+
+from libcfcg import cf, helper
 
 orb = cf.Orbit()
-orb.read("chaos_files/Brezel_1.orb")
+orb.read("chaos_files/brezel_1.orb")
 
 print(  "\nName: ", orb.getName(),
         "\nNumber of factors: ", orb.getNumFactors(),
